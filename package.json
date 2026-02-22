@@ -1,0 +1,21 @@
+{
+  "name": "dota2voicelines",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "homepage": "https://ledauphinn.github.io/dota2quiz",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "gh-pages -d ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cheerio": "^1.2.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
+  }
+}
