@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dota 2 Voicelines Explorer</title>
+    <meta name="description" content="Explore and play thousands of Dota 2 hero voice lines dynamically.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="background-animated"></div>
+
+    <main class="app-container">
+        <header class="top-nav">
+            <button id="mode-explorer-btn" class="nav-btn active">Explorer</button>
+            <button id="mode-quiz-btn" class="nav-btn">Quiz</button>
+        </header>
+
+        <!-- EXPLORER MODE -->
+        <div id="mode-explorer" class="mode-container active">
+            <aside class="sidebar glass-panel">
+                <header class="sidebar-header">
+                    <h1 class="brand-title">Dota 2<span class="sub">Voicelines</span></h1>
+                    <div class="search-container">
+                        <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" class="search-icon">
+                            <path
+                                d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                                fill="currentColor"></path>
+                        </svg>
+                        <input type="text" id="hero-search" placeholder="Search heroes..." aria-label="Search Heroes">
+                    </div>
+                </header>
+
+                <div class="hero-list-container">
+                    <ul id="hero-list" class="hero-list">
+                        <!-- Heroes injected here via JS -->
+                    </ul>
+                </div>
+            </aside>
+
+            <section class="content-panel glass-panel">
+                <header class="content-header">
+                    <h2 id="current-hero-name" class="current-hero-title">Select a Hero</h2>
+                    <div class="search-container voiceline-search" id="voiceline-search-container"
+                        style="display: none;">
+                        <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" class="search-icon">
+                            <path
+                                d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                                fill="currentColor"></path>
+                        </svg>
+                        <input type="text" id="line-search" placeholder="Search voicelines..."
+                            aria-label="Search Voicelines">
+                    </div>
+                </header>
+
+                <div class="voicelines-container" id="voicelines-container">
+                    <div class="empty-state">
+                        <div class="pulse-icon">🔊</div>
+                        <p>Choose a hero from the sidebar to explore their responses.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- QUIZ MODE -->
+        <div id="mode-quiz" class="mode-container">
+            <div class="glass-panel quiz-panel">
+                <div class="quiz-header">
+                    <h2>Guess the Hero!</h2>
+                    <div class="score-display">Score: <span id="quiz-score">0</span></div>
+                </div>
+
+                <div id="quiz-state-start" class="quiz-state active">
+                    <p class="quiz-intro">Read the voice line text and guess which hero said it by searching for their
+                        name!</p>
+                    <button id="btn-start-quiz" class="action-btn">Start Quiz</button>
+                </div>
+
+                <div id="quiz-state-playing" class="quiz-state">
+                    <div class="quote-display-container">
+                        <blockquote id="quiz-quote-text" class="quiz-quote">"..."</blockquote>
+                        <button id="btn-refresh-question" class="refresh-btn" title="Skip Question"
+                            aria-label="Skip Question">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path
+                                    d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="search-container quiz-search-container">
+                        <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" class="search-icon">
+                            <path
+                                d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                                fill="currentColor"></path>
+                        </svg>
+                        <input type="text" id="quiz-hero-search" placeholder="Search for hero name..."
+                            autocomplete="off">
+                        <ul id="quiz-hero-autocomplete" class="autocomplete-list"></ul>
+                    </div>
+
+                    <div class="audio-player-container quiz-audio-reveal" id="quiz-audio-reveal"
+                        style="display: none; margin-top: 2rem;">
+                        <button id="btn-play-quiz-audio" class="play-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z" />
+                            </svg>
+                        </button>
+                        <span class="hint-text">Hear the real voice</span>
+                    </div>
+
+                    <div class="quiz-feedback" id="quiz-feedback"></div>
+
+                    <button id="btn-next-question" class="action-btn" style="display: none; margin-top: 1.5rem;">Next
+                        Question</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="items.js"></script>
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
